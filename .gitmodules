@@ -1,0 +1,15 @@
+[submodule "comment-service"]
+	path = comment-service
+	url = https://github.com/AminelMhl/social-media-comment-service.git
+[submodule "message-service"]
+	path = message-service
+	url = https://github.com/AminelMhl/social-media-message-service.git
+[submodule "post-service"]
+	path = post-service
+	url = https://github.com/AminelMhl/social-media-post-service.git
+[submodule "user-service"]
+	path = user-service
+	url = https://github.com/AminelMhl/social-media-user-service.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/AminelMhl/social-media-frontend.git

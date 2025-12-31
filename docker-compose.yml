@@ -1,0 +1,108 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: social_user
+      POSTGRES_PASSWORD: social_pass
+      POSTGRES_DB: social_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  user-service:
+    build: ./user-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: social_user
+      DB_PASSWORD: social_pass
+      DB_NAME: social_db
+      JWT_SECRET: supersecretjwt
+      JWT_EXPIRES_IN: 1d
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+
+  post-service:
+    build: ./post-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3002
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: social_user
+      DB_PASSWORD: social_pass
+      DB_NAME: social_db
+      USER_SERVICE_URL: http://user-service:3001
+    depends_on:
+      - db
+      - user-service
+    ports:
+      - "3002:3002"
+
+  comment-service:
+    build: ./comment-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3003
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: social_user
+      DB_PASSWORD: social_pass
+      DB_NAME: social_db
+      USER_SERVICE_URL: http://user-service:3001
+      POST_SERVICE_URL: http://post-service:3002
+    depends_on:
+      - db
+      - user-service
+      - post-service
+    ports:
+      - "3003:3003"
+
+  message-service:
+    build: ./message-service
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3004
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: social_user
+      DB_PASSWORD: social_pass
+      DB_NAME: social_db
+      JWT_SECRET: supersecretjwt
+      USER_SERVICE_URL: http://user-service:3001
+    depends_on:
+      - db
+      - user-service
+    ports:
+      - "3004:3004"
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_USER_SERVICE_URL: http://user-service:3001
+      NEXT_PUBLIC_POST_SERVICE_URL: http://post-service:3002
+      NEXT_PUBLIC_COMMENT_SERVICE_URL: http://comment-service:3003
+      NEXT_PUBLIC_MESSAGE_SERVICE_URL: http://message-service:3004
+    depends_on:
+      - user-service
+      - post-service
+      - comment-service
+    ports:
+      - "3000:3000"
+
+volumes:
+  db-data:
