@@ -1,0 +1,150 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: user-service
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: user-service
+spec:
+  runPolicy: Serial
+  source:
+    type: Git
+    git:
+      uri: https://github.com/AminelMhl/Social-Media-Platform.git
+    contextDir: user-service
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: user-service:latest
+  triggers:
+    - type: ConfigChange
+    - type: Generic
+      generic:
+        secret: CHANGE_ME_USER_SERVICE_WEBHOOK_SECRET
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: post-service
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: post-service
+spec:
+  runPolicy: Serial
+  source:
+    type: Git
+    git:
+      uri: https://github.com/AminelMhl/Social-Media-Platform.git
+    contextDir: post-service
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: post-service:latest
+  triggers:
+    - type: ConfigChange
+    - type: Generic
+      generic:
+        secret: CHANGE_ME_POST_SERVICE_WEBHOOK_SECRET
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: comment-service
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: comment-service
+spec:
+  runPolicy: Serial
+  source:
+    type: Git
+    git:
+      uri: https://github.com/AminelMhl/Social-Media-Platform.git
+    contextDir: comment-service
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: comment-service:latest
+  triggers:
+    - type: ConfigChange
+    - type: Generic
+      generic:
+        secret: CHANGE_ME_COMMENT_SERVICE_WEBHOOK_SECRET
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: message-service
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: message-service
+spec:
+  runPolicy: Serial
+  source:
+    type: Git
+    git:
+      uri: https://github.com/AminelMhl/Social-Media-Platform.git
+    contextDir: message-service
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: message-service:latest
+  triggers:
+    - type: ConfigChange
+    - type: Generic
+      generic:
+        secret: CHANGE_ME_MESSAGE_SERVICE_WEBHOOK_SECRET
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: frontend
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: frontend
+spec:
+  runPolicy: Serial
+  source:
+    type: Git
+    git:
+      uri: https://github.com/AminelMhl/Social-Media-Platform.git
+    contextDir: frontend
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: frontend:latest
+  triggers:
+    - type: ConfigChange
+    - type: Generic
+      generic:
+        secret: CHANGE_ME_FRONTEND_WEBHOOK_SECRET
+
