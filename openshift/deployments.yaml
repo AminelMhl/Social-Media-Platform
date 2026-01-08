@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: image-registry.openshift-image-registry.svc:5000/YOUR_PROJECT/user-service:latest
+          image: image-registry.openshift-image-registry.svc:5000/social-media-app/user-service:latest
           ports:
             - containerPort: 3001
           env:
@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
         - name: post-service
-          image: image-registry.openshift-image-registry.svc:5000/YOUR_PROJECT/post-service:latest
+          image: image-registry.openshift-image-registry.svc:5000/social-media-app/post-service:latest
           ports:
             - containerPort: 3002
           env:
@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
         - name: comment-service
-          image: image-registry.openshift-image-registry.svc:5000/YOUR_PROJECT/comment-service:latest
+          image: image-registry.openshift-image-registry.svc:5000/social-media-app/comment-service:latest
           ports:
             - containerPort: 3003
           env:
@@ -83,7 +83,7 @@ spec:
     spec:
       containers:
         - name: message-service
-          image: image-registry.openshift-image-registry.svc:5000/YOUR_PROJECT/message-service:latest
+          image: image-registry.openshift-image-registry.svc:5000/social-media-app/message-service:latest
           ports:
             - containerPort: 3004
           env:
@@ -106,7 +106,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: image-registry.openshift-image-registry.svc:5000/YOUR_PROJECT/frontend:latest
+          image: image-registry.openshift-image-registry.svc:5000/social-media-app/frontend:latest
           ports:
             - containerPort: 3000
           env:

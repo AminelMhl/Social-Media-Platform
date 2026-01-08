@@ -13,6 +13,8 @@ spec:
     type: Git
     git:
       uri: https://github.com/AminelMhl/Social-Media-Platform.git
+      ref: master
+      recursive: true
     contextDir: user-service
   strategy:
     type: Docker
@@ -43,6 +45,8 @@ spec:
     type: Git
     git:
       uri: https://github.com/AminelMhl/Social-Media-Platform.git
+      ref: master
+      recursive: true
     contextDir: post-service
   strategy:
     type: Docker
@@ -73,6 +77,8 @@ spec:
     type: Git
     git:
       uri: https://github.com/AminelMhl/Social-Media-Platform.git
+      ref: master
+      recursive: true
     contextDir: comment-service
   strategy:
     type: Docker
@@ -103,6 +109,8 @@ spec:
     type: Git
     git:
       uri: https://github.com/AminelMhl/Social-Media-Platform.git
+      ref: master
+      recursive: true
     contextDir: message-service
   strategy:
     type: Docker
@@ -133,6 +141,8 @@ spec:
     type: Git
     git:
       uri: https://github.com/AminelMhl/Social-Media-Platform.git
+      ref: master
+      recursive: true
     contextDir: frontend
   strategy:
     type: Docker
@@ -147,4 +157,3 @@ spec:
     - type: Generic
       generic:
         secret: CHANGE_ME_FRONTEND_WEBHOOK_SECRET
-
